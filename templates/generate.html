@@ -121,18 +121,22 @@
                 const cube = new THREE.Mesh(geometry, material);
                 scene.add( cube );
                 Tcontrols.attach(cube);
+				cubep(x,y,z);
             } else if (shape.value == "cone") {
                 const geometry = new THREE.ConeGeometry( x, y, z ); 
                 const material = new THREE.MeshBasicMaterial( {color: 0xffff00} );
                 const cone = new THREE.Mesh(geometry, material ); 
                 scene.add( cone );
                 Tcontrols.attach(cone);
+				conep(x,y);
             } else if (shape.value == "sphere") {
                 const geometry = new THREE.SphereGeometry( x, y, z ); 
                 const material = new THREE.MeshBasicMaterial( { color: 0xffff00 } ); 
                 const sphere = new THREE.Mesh( geometry, material );
                 scene.add( sphere );
                 Tcontrols.attach(sphere);
+				spherep(x); 
+				
             }
                 
         }
@@ -156,6 +160,87 @@
         submitbutton.addEventListener("click", addShape);
 
         main();
+		
+		
+	// shapes 
+	function spherep(radius) {
+	console.log('sphere');
+	console.log(radius);
+	var radius = Number(radius);
+	document.getElementById('pattern').innerHTML +='<br>sphere' + '<br>';
+    let height = radius * 2;
+    let circumference = radius * 2 * 3;
+
+    // Increase
+    for (let row = 1; row <= height; row++) {
+        let string = 'r' + row + ':';
+        if (row === 1) {
+            string += '6sc in mr';
+        } else {
+            string += '(' + (row - 2) + 'sc, inc)x6 ';
+        }
+        let total = 6 * row;
+        string += '(' + total + ')';
+        document.getElementById('pattern').innerHTML += string +'<br>';
+
+        if (total === circumference) {
+            var end = row;
+            break;
+        }
+    }
+
+    // Decrease
+    for (let row = end + 1; row < height; row++) {
+        if (row === end + 1) {
+            document.getElementById('pattern').innerHTML += 'r' + (end + 1) + ': sc around (' + (end * 6) + ')' +'<br>';
+        }
+        let curr = height - row;
+        let string = 'r' + (row + 1) + ':';
+        string += '(' + (curr - 1) + 'sc, dec)x6 ';
+        let total = 6 * curr;
+        string += '(' + total + ')';
+        document.getElementById('pattern').innerHTML += string+'<br>';
+    }
+}
+
+function cubep(length, width, height) {
+	console.log(length, width, height);
+	var length = Number(length); 
+	var width = Number(width); 
+	var height = Number(height);
+	document.getElementById('pattern').innerHTML += '<br> cube' +'<br>';
+    document.getElementById('pattern').innerHTML +='r1: ch ' + (length + 1) + ' (' + (length + 1) + ')' +'<br>';
+    document.getElementById('pattern').innerHTML +='r2-' + (width + 1) + ': ' + length + ' sc, ch, turn (' + length + ')' +'<br>';
+    document.getElementById('pattern').innerHTML +='You should get a 2D rectangle' +'<br>';
+    document.getElementById('pattern').innerHTML +='Next step: sc along the perimeter of the rectangles' +'<br>';
+    let perimeter = (length + width) * 2;
+    document.getElementById('pattern').innerHTML +='r' + (width + 2) + '-' + (width + 2 + height) + ': sc around BLO (' + perimeter + ')'+'<br>';
+}
+
+function conep(radius, height) {
+	console.log(radius, height);
+	var radius = Number(radius);
+	var height = Number(height);
+	document.getElementById('pattern').innerHTML += '<br>cone' +'<br>';
+    let circumference = radius * 6;
+    let increments = Math.floor(circumference / height);
+    for (let row = 1; row <= height; row++) {
+        if (increments >= 6 && row === 1) {
+            if (increments % 2 === 0) {
+                document.getElementById('pattern').innerHTML +='r0: ' + Math.floor(increments / 2) + ' sc in mr (' + Math.floor(increments / 2) + ')' +'<br>';
+                document.getElementById('pattern').innerHTML +='r1: ' + Math.floor(increments / 2) + ' inc (' + increments + ')' +'<br>';
+            } else {
+                document.getElementById('pattern').innerHTML +='r0: ' + (Math.floor(increments / 2) + 1) + ' sc in mr (' + (Math.floor(increments / 2) + 1) + ')' +'<br>';
+                document.getElementById('pattern').innerHTMl +='r1: ' + Math.floor(increments / 2) + ' inc, sc (' + increments + ')' +'<br>';
+            }
+        } else if (row === 1) {
+            document.getElementById('pattern').innerHTML +='r1: ' + increments + ' sc in mr (' + increments + ')' +'<br>';
+        } else {
+            document.getElementById('pattern').innerHTML +='r' + row + ': (' + (row - 2) + ' sc, inc) x ' + increments + ' (' + (increments * row) + ')' +'<br>';
+        }
+    }
+}
+	
     </script>
     <body>
         <br><br><br>
@@ -190,7 +275,7 @@
                 <canvas id="canva"></canvas>
             </div>
             <div class = 'column' style = 'flex:50%; margin: auto;'>
-                <div class="scrollable-text" style = 'width:100%; height: 50%; overflow:auto; border: 1px solid; padding:10px' id = 'pattern'></div>
+                <div class="scrollable-text" style = 'width:100%; height: 300px; overflow:auto; border: 1px solid; padding:10px' id = 'pattern'></div>
 
             </div>
 
