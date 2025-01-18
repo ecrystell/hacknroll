@@ -4,6 +4,12 @@ body, div {
 	background-color: #FFFDEC;
 } 
 
+#crizz { 
+	font-size: 100px;
+	padding: 0;
+	margin:0;
+	font-family: fantasy;
+} 
 
 video {
 	height: 420px; 
