@@ -1,5 +1,5 @@
-from flask import Flask, render_template, request, url_for
-
+from flask import Flask, render_template, request, url_for, redirect
+from stitch import stitch_finder
 app = Flask(__name__)
 
 @app.route('/')
@@ -17,12 +17,18 @@ def tutorial_page():
         if img:
             # img to text code
             pass
+        
+        clean_text, stitches = stitch_finder(text)
 
         
-        return render_template('tutorial_page.html')
+        return render_template('tutorial_page.html', clean_text=clean_text, stitches=stitches)
+    
+    else:
+        return redirect('/home/')
 
 
 @app.route('/stitches/')
 def stitches():
     return render_template('stitches.html') 
-app.run()
+
+app.run(debug=True)
