@@ -5,8 +5,121 @@
 </head>
 
 <body>
-	<div width = '50%' height = '70%'>
-		<video width = "45%" height = "45%">
-		<source src = '../static/video/mylivewallpapers-com-Pokemon-Nap-Time-4K.mp4'>
+    <nav>
+        <ul>
+            <li><a href="#">Home</a></li>
+        </ul>
+    </nav>
+	
+	<div class = 'container' style = 'display: flex; gap: 20px; padding: 20px'>
+		<!-- within container div -->
+		<div class = 'column' style = 'flex:1'>
+			<!-- within column 1 div -->
+			<video controls loop autoplay width = '100%' height = 'auto'>
+			<source src = '../static/video/mylivewallpapers-com-Pokemon-Nap-Time-4K.mp4' type="video/mp4">
+			</video>
+			
+			<div id="controls" style = 'text-align: center'>
+				<!-- within column 1 -> button div -->
+				<button id="prevButton">⬅️ Previous</button>
+				<button id="nextButton">Next ➡️</button>
+			</div>
+		</div>
+		
+		<div class = 'columm' style = 'flex:1'>
+			<!-- within column 2 div -->
+			<div class="scrollable-text" style = 'width:100%; height: 50%; overflow:auto; border: 1px solid; padding:10px' id = 'textBox'>
+				Lorem ipsum dolor sit amet, consectetur adipiscing elit.<br>
+				Vestibulum eget tempus mauris. Nulla facilisi. Sed at arcu non est congue malesuada.<br>
+				Proin vehicula, justo at viverra congue, sapien elit lacinia metus, vel dictum purus elit ac dui.<br>
+				Cras auctor odio nec sapien dapibus, nec mollis odio convallis. Quisque consequat, lectus nec faucibus fermentum,<br>
+				erat risus suscipit turpis, sit amet consectetur est nisi non magna. Duis aliquet tincidunt feugiat.<br>
+				Maecenas malesuada quam ac mauris varius, nec pharetra metus dapibus.<br>
+				More text here to demonstrate scrolling.<br>
+				Aenean vel eros sit amet arcu tincidunt convallis ut et nulla.<br>
+				Nulla facilisi. Pellentesque eget magna eget eros varius pharetra.<br>
+				Sed cursus, purus eget vehicula scelerisque, libero orci tempor mi, 
+				quis venenatis turpis lectus nec urna.
+				<br>
+				More text here to demonstrate scrolling. 
+				Aenean vel eros sit amet arcu tincidunt convallis ut et nulla. 
+				Nulla facilisi. Pellentesque eget magna eget eros varius pharetra. 
+				Sed cursus, purus eget vehicula scelerisque, libero orci tempor mi, 
+				quis venenatis turpis lectus nec urna.
+				<br>
+				More text here to demonstrate scrolling. 
+				Aenean vel eros sit amet arcu tincidunt convallis ut et nulla. 
+				Nulla facilisi. Pellentesque eget magna eget eros varius pharetra. 
+				Sed cursus, purus eget vehicula scelerisque, libero orci tempor mi, 
+				quis venenatis turpis lectus nec urna.
+			</div>
+		</div>
+		
 	</div>
+	<script>
+		// Initial state
+		let currentLineIndex = 0;
+		let currentWordIndex = 0;
+		let lineLength = [];
+		let out = [];
+
+		// DOM elements
+		const textBox = document.getElementById("textBox");
+		const prevButton = document.getElementById("prevButton");
+		const nextButton = document.getElementById("nextButton");
+		
+		// Words in the text box
+		let lines = textBox.innerHTML.split(/<br>/) 
+		for (let i = 0; i < lines.length;i++){
+			currLine = lines[i]
+			let words = currLine.split(' ')
+			out[i] = words
+			lineLength[i] = words.length
+		}
+		
+		// Function to update text with highlighted word
+		function updateText() {
+			let updatedText = '';
+			for (let line = 0; line < lineLength.length; line++){
+				for (let word = 0; word < lineLength[line]; word ++){
+					if (line == currentLineIndex && word == currentWordIndex){
+						updatedText += `<span style="color: blue; font-weight: bold;">${out[line][word]}</span>`;
+					} 
+					else{
+						updatedText += out[line][word];
+					}
+					updatedText += ' ';
+				}
+				updatedText += '<br>'
+			}
+            textBox.innerHTML = updatedText;
+        }
+
+		// Previous button functionality
+		prevButton.addEventListener("click", () => {
+			if (currentWordIndex > 0) {
+				currentWordIndex--;
+			}
+			else if (currentWordIndex == 0 && currentLineIndex > 0){
+				currentLineIndex--;
+				currentWordIndex = lineLength[currentLineIndex] -1;
+			}
+			updateText();
+		});
+
+		// Next button functionality
+		nextButton.addEventListener("click", () => {
+			if (currentWordIndex < lineLength[currentLineIndex] - 1) {
+				currentWordIndex++;
+			}
+			else if (currentWordIndex = lineLength[currentLineIndex] - 1 && currentLineIndex < lineLength.length -1){
+				currentWordIndex = 0;
+				currentLineIndex++;
+			}
+			updateText();
+		});
+
+		// Initial render
+		updateText();
+    </script>
 </body>
