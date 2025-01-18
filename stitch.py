@@ -10,7 +10,7 @@ def stitch_finder(text):
 
     # Normalize the text and targets for case-insensitive search
     text = text.lower()
-    text_result = []
+    text_result = ""
     targets = [target.lower() for target in targets]
 
     # Split the text into lines
@@ -78,15 +78,15 @@ def stitch_finder(text):
                                     if smaller:
                                         toadd.append(result)
                                     else:
-                                        line_results.append(result)
+                                        line_results.append()
                                 break  # Move to the next window after finding a match
             if line_results:
                 all_results.append(line_results)
 
             line = line.replace('\t', ' ')[:-3]
             
-            text_result.append(line)
+            text_result += line + "\n"
         
-    return (text_result, all_results)
+    return (text_result[:-1], all_results)
 
 

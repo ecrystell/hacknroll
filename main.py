@@ -1,5 +1,8 @@
 from flask import Flask, render_template, request, url_for, redirect
 from stitch import stitch_finder
+from ocr import image_to_text
+import os
+
 app = Flask(__name__)
 
 @app.route('/')
@@ -12,11 +15,18 @@ def home():
 def tutorial_page():
     if request.method == "POST":
         text = request.form["text"]
-        img = request.form["img"]
+        try:
+            img = request.form["img"]
+        except:
+            img = ''
 
-        if img:
-            # img to text code
-            pass
+        if img and img.filename.split('.')[-1] in ['jpg', 'jpeg', 'png']:
+            img.save("images/" + img.filename)
+
+            text = image_to_text(img)
+
+            os.remove("images/" + img.filename)
+
         
         clean_text, stitches = stitch_finder(text)
 
