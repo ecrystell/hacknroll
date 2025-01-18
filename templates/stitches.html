@@ -6,23 +6,34 @@
 	</head>
 	<body> 
 	
+	<nav>
+		<div id = 'topnav' class = 'topnav'>
+			<!-- <a href="#home" class='active' id = 'homepg' onclick='homeactive()'>home</a> --> 
+			<a href = "{{url_for('home')}}"> <button> home</button></a>
+			<div class = 'dropdown'>
+			<a href = "{{url_for('stitches')}}"> <button class='dropbtn'> stitches </button> </a>
+				  <div class="dropdown-content">
+					<a href = "{{url_for('stitches')}}#sc"> single crochet (sc) </a> 
+					<a href = "{{url_for('stitches')}}#ch"> chain (ch) </a> 
+					<a href = "{{url_for('stitches')}}#hdc"> half double crochet (hdc) </a>
+					<a href = "{{url_for('stitches')}}#dc"> double crochet (dc) </a>
+					<a href = "{{url_for('stitches')}}#tc"> treble crochet (tc) </a>
+					<a href = "{{url_for('stitches')}}#mr"> magic ring (mr) </a>
+					<a href = "{{url_for('stitches')}}#inc"> increase (inc) </a>
+					<a href = "{{url_for('stitches')}}#dec"> decrease (dec) </a>
+					<a href = "{{url_for('stitches')}}#blo"> back loop only (blo) </a>
+					<a href = "{{url_for('stitches')}}#flo"> front loop only (flo) </a>
+				  </div>
+				
+			</div>
+			
+		</div>
+    </nav>
+	<br><br><br>
 		<h1> stitches </h1>
 		
-		<p> contents </p>
-		<a href = '#sc'> single crochet (sc) </a> <br>
-		<a href = '#ch'> chain (ch) </a> <br>
-		<a href = '#hdc'> half double crochet (hdc) </a><br>
-		<a href = '#dc'> double crochet (dc) </a><br>
-		<a href = '#tc'> treble crochet (tc) </a><br>
-		<a href = '#mr'> magic ring (mr) </a><br>
-		<a href = '#inc'> increase (inc) </a><br>
-		<a href = '#dec'> decrease (dec) </a><br>
-		<a href = '#blo'> back loop only (blo) </a><br>
-		<a href = '#flo'> front loop only (flo) </a><br>
-		
-		
 		<div id = 'sc' name = 'sc'> 
-			<br><br><br>
+			<br><br><br><br>
 			<video width="320" height="240" controls>
 			  <source src="{{url_for('static', filename = 'video/sample.mp4')}}" type="video/mp4">
 			Your browser does not support the video tag.
@@ -31,7 +42,7 @@
 		</div>
 		
 		<div id = 'ch' name = 'ch'> 
-		<br><br><br>
+		<br><br><br><br>
 			<video width="320" height="240" controls>
 			  <source src="{{url_for('static', filename = 'video/sample.mp4')}}" type="video/mp4">
 			Your browser does not support the video tag.
@@ -40,7 +51,7 @@
 		</div>
 		
 		<div id = 'hdc' name = 'hdc'> 
-		<br><br><br>
+		<br><br><br><br>
 			<video width="320" height="240" controls>
 			  <source src="{{url_for('static', filename = 'video/sample.mp4')}}" type="video/mp4">
 			Your browser does not support the video tag.
@@ -49,7 +60,7 @@
 		</div>
 		
 		<div id = 'dc' name = 'dc'> 
-		<br><br><br>
+		<br><br><br><br>
 			<video width="320" height="240" controls>
 			  <source src="{{url_for('static', filename = 'video/sample.mp4')}}" type="video/mp4">
 			Your browser does not support the video tag.
@@ -57,7 +68,7 @@
 			<br><p> double crochet (dc)</p>
 		</div>
 		
-		<div id = 'tc' name = 'tc'> <br><br><br>
+		<div id = 'tc' name = 'tc'> <br><br><br><br>
 			<video width="320" height="240" controls>
 			  <source src="{{url_for('static', filename = 'video/sample.mp4')}}" type="video/mp4">
 			Your browser does not support the video tag.
@@ -65,7 +76,7 @@
 			<br><p> treble crochet (tc)</p>
 		</div>
 		
-		<div id = 'mr' name = 'mr'> <br><br><br>
+		<div id = 'mr' name = 'mr'> <br><br><br><br>
 			<video width="320" height="240" controls>
 			  <source src="{{url_for('static', filename = 'video/sample.mp4')}}" type="video/mp4">
 			Your browser does not support the video tag.
@@ -73,7 +84,7 @@
 			<br><p> magic ring (mr)</p>
 		</div>
 		
-		<div id = 'inc' name = 'inc'> <br><br><br>
+		<div id = 'inc' name = 'inc'> <br><br><br><br>
 			<video width="320" height="240" controls>
 			  <source src="{{url_for('static', filename = 'video/sample.mp4')}}" type="video/mp4">
 			Your browser does not support the video tag.
@@ -81,7 +92,7 @@
 			<br><p> increase (inc)</p>
 		</div>
 		
-		<div id = 'dec' name = 'dec'> <br><br><br>
+		<div id = 'dec' name = 'dec'> <br><br><br><br>
 			<video width="320" height="240" controls>
 			  <source src="{{url_for('static', filename = 'video/sample.mp4')}}" type="video/mp4">
 			Your browser does not support the video tag.
@@ -89,7 +100,7 @@
 			<br><p> decrease (dec)</p>
 		</div>
 		
-		<div id = 'blo' name = 'blo'> <br><br><br>
+		<div id = 'blo' name = 'blo'> <br><br><br><br>
 			<video width="320" height="240" controls>
 			  <source src="{{url_for('static', filename = 'video/sample.mp4')}}" type="video/mp4">
 			Your browser does not support the video tag.
@@ -97,7 +108,7 @@
 			<br><p> back loop only (blo)</p>
 		</div>
 		
-		<div id = 'flo' name = 'flo'> <br><br><br>
+		<div id = 'flo' name = 'flo'> <br><br><br><br>
 			<video width="320" height="240" controls>
 			  <source src="{{url_for('static', filename = 'video/sample.mp4')}}" type="video/mp4">
 			Your browser does not support the video tag.
@@ -105,13 +116,13 @@
 			<br><p> front loop only (flo)</p>
 		</div>
 		
-		<button onclick="topFunction()" id="myBtn" title="Go to top">Top</button>
+		<button onclick="topFunction()" id="topBtn" title="Go to top">Top</button>
 
 	</body>
 		
 	<script>
 	// Get the button:
-	let mybutton = document.getElementById("myBtn");
+	let mybutton = document.getElementById("topBtn");
 
 	// When the user scrolls down 20px from the top of the document, show the button
 	window.onscroll = function() {scrollFunction()};

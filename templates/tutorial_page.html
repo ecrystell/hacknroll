@@ -6,12 +6,12 @@
 </head>
 
 <body>
-    <nav>
+   <nav>
 		<div id = 'topnav' class = 'topnav'>
 			<!-- <a href="#home" class='active' id = 'homepg' onclick='homeactive()'>home</a> --> 
-			<button><a href = "{{url_for('home')}}"> home </a></button>
+			<a href = "{{url_for('home')}}"> <button> home</button></a>
 			<div class = 'dropdown'>
-			<button class='dropbtn'><a href = "{{url_for('stitches')}}"> stitches </a></button>			
+			<a href = "{{url_for('stitches')}}"> <button class='dropbtn'>stitches</button> </a>
 				  <div class="dropdown-content">
 					<a href = "{{url_for('stitches')}}#sc"> single crochet (sc) </a> 
 					<a href = "{{url_for('stitches')}}#ch"> chain (ch) </a> 
@@ -29,8 +29,8 @@
 			
 		</div>
     </nav>
-	
-	<div class = 'container' style = 'display: flex; gap: 20px; padding: 20px'>
+	<br><br>
+	<div class = 'container' style = 'display: flex; gap: 20px; padding: 20px; z-index:1;'>
 		<!-- within container div -->
 		<div class = 'column' style = 'flex:1'>
 			<!-- within column 1 div -->
@@ -78,7 +78,7 @@
 		const nextButton = document.getElementById("nextButton");
 		
 		textBox.innerHTML = "{{ clean_text }}";
-		const stitch = {{stitches | tojson}};
+		const stitch = "{{stitches | tojson}}";
 		// Words in the text box
 		let lines = textBox.innerHTML.split(/"\n"/);
 		for (let i = 0; i < lines.length;i++){

@@ -3,15 +3,13 @@ def stitch_finder(text):
     Detect substrings using a sliding window.
 
     :param text: The input string to search.
+    :param targets: A list of target substrings to detect.
     :return: A list of lists, each containing detected substrings with their numbers for each line.
     """
-
-    targets = ["sc", "ch", "dc", "hdc", "tc", "mr", "inc", "dec", "blo", "flo", "slst", "sl st", "x"]
-
     # Normalize the text and targets for case-insensitive search
     text = text.lower()
-    text_result = ""
-    targets = [target.lower() for target in targets]
+    text_result = []
+    targets = ["sc", "ch", "dc", "hdc", "tc", "mr", "inc", "dec", "blo", "flo", "slst", "x"]
 
     # Split the text into lines
     lines = text.splitlines()
@@ -22,27 +20,40 @@ def stitch_finder(text):
     # Sliding window approach
     window_size = max(len(target) for target in targets)  # Max length of target substrings
 
-    smaller = False
+    repeat = False
+    toadd = []
+
     for line in lines:
+        wordcount = 0
         if line:
             line_results = []
             line += '   '
-            for i in range(len(line) - window_size + 1):
+            line = line.replace('sl st', 'slst')
+            
+            i = -1
+            while i < len(line) - window_size:
+            #for i in range(len(line) - window_size + 1):
+                i += 1
+                print(i, line[i], line_results)
+                if line[i] == ' ' and i < len(line) -1 and line[i+1] != ' ':
+                    wordcount += 1
+                    continue
+
                 # Extract the current window
                 window = line[i:i + window_size]
+                if window.startswith('[') or window.startswith('('):
+                    repeat = True
+                    
+                elif window.startswith(']') or window.startswith(')'):
+                    if toadd:
+                        line_results.append(toadd)
+                    toadd = []
+                    repeat = False
                 #print(window)
                 # Check for any target in the window
                 for target in targets:
-                    if window.startswith('[') or window.startswith('('):
-                        toadd = []
-                        smaller = True
-                    elif window.startswith(']') or window.startswith(')'):
-                        if toadd:
-                            line_results.append(toadd)
-                        toadd = []
-                        smaller = False
 
-
+                    
                     if window.startswith(target):
                         # Ensure the characters before and after are not letters
                         before = line[i - 1] if i > 0 else " "
@@ -55,9 +66,30 @@ def stitch_finder(text):
                                 while num_start < len(line) and (line[num_start].isdigit() or line[num_start] == ' '):
                                     num_start += 1
 
-                                number = line[i+1:num_start].strip()
-                                result = f"{target}{number}".strip()
-                                line_results.append(result)
+                                number = int(line[i+1:num_start].strip())
+                                #print(number)
+                                torepeat = line_results[-1]
+                                line_results.pop()
+                                count = torepeat[0][1]
+                                for j in range(number):
+                                    
+                                    for item, oldcount in torepeat:
+                                        line_results.append((item, count))
+                                        count += 1
+                                        if j != number-1:
+                                            line = line[:i] + item + ' ' + line[i:]
+                                            print(i)
+                                            i += len(item) + 1
+
+                                #result = f"{target}{number}".strip()
+                                #line_results.append(result)
+                                num_start = i + 1
+                                while num_start < len(line) and (line[num_start].isdigit() or line[num_start] == ' '):
+                                    num_start += 1
+                                
+                                line = line[:i] + line[num_start:]
+                                #print(torepeat, line_results)
+
                                 break
 
                             else:
@@ -66,9 +98,10 @@ def stitch_finder(text):
                                     num_start -= 1
 
                                 
-                                if num_start < i - 1:
+                                if num_start < i - 2:
                                     number = line[num_start + 1:i].strip() 
                                     line = line[:i-1] + line[i:]
+                                    wordcount -= 1
                                 else:
                                     number = ""
 
@@ -77,21 +110,47 @@ def stitch_finder(text):
                                 context = line[context_start:num_start + 1].strip()
 
                                 if context not in ["th", "nd", "st"]:
-                                    if not number and target not in ["flo", "blo", "mr"]:
-                                        number = "1"
+                                    
                                     result = f"{number}{target}".strip()
-                                    if smaller:
-                                        toadd.append(result)
+                                    if repeat:
+                                        toadd.append((result, wordcount))
                                     else:
-                                        line_results.append(result)
+                                       
+                                        line_results.append((result, wordcount))
+                                        #print("window", window, line, line[i], i)
+                                        #print(line_results)
                                 break  # Move to the next window after finding a match
+                
+                
             if line_results:
                 all_results.append(line_results)
-
+            
             line = line.replace('\t', ' ')[:-3]
             
-            text_result += line + "\n"
+            text_result.append(line)
+
         
-    return (text_result[:-1], all_results)
+    return (text_result, all_results)
 
+""" 
+text = '''
+R1\t        6 SC in a MR
 
+R2\t        [INC] x 6  (12)
+
+R3\t        [SC, INC] x 6 (18)
+
+R4\t        16 SC, [SL ST, CH1, DC, CH1, SL ST] in FLO of one stitch, 1 SC
+
+If you need more help with round 4, please visit the video tutorial at timestamp: 10:52
+
+R5\t        2 SC, [SL ST, CH1, DC CH1, SL ST] in  FLO of one stitch, 15 SC (the 14th SC should be made in the BLO of R3)
+
+R6\t        7 SC (the third SC should be made in the BLO of R4), 4-DcBo , 3 SC,  4-DcBo, 6 SC (18)
+
+R7-9\t18 SC (18)   3 Rounds
+
+R10\t        8 SC, 4-DcBo, 3 SC, 4-DcBo, 5 SC (18)
+'''
+
+print(stitch_finder(text)) """

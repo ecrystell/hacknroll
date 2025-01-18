@@ -5,13 +5,40 @@
 		<title> home </title>
 	</head>
 	<body> 
-
-		<h1> hello!! welcome to crizz!</h1>
+	<nav>
+		<div id = 'topnav' class = 'topnav'>
+			<!-- <a href="#home" class='active' id = 'homepg' onclick='homeactive()'>home</a> --> 
+			<a href = "{{url_for('home')}}"> <button> home</button></a>
+			<div class = 'dropdown'>
+			<a href = "{{url_for('stitches')}}"> <button class='dropbtn'> stitches </button> </a>
+				  <div class="dropdown-content">
+					<a href = "{{url_for('stitches')}}#sc"> single crochet (sc) </a> 
+					<a href = "{{url_for('stitches')}}#ch"> chain (ch) </a> 
+					<a href = "{{url_for('stitches')}}#hdc"> half double crochet (hdc) </a>
+					<a href = "{{url_for('stitches')}}#dc"> double crochet (dc) </a>
+					<a href = "{{url_for('stitches')}}#tc"> treble crochet (tc) </a>
+					<a href = "{{url_for('stitches')}}#mr"> magic ring (mr) </a>
+					<a href = "{{url_for('stitches')}}#inc"> increase (inc) </a>
+					<a href = "{{url_for('stitches')}}#dec"> decrease (dec) </a>
+					<a href = "{{url_for('stitches')}}#blo"> back loop only (blo) </a>
+					<a href = "{{url_for('stitches')}}#flo"> front loop only (flo) </a>
+				  </div>
+				
+			</div>
+			
+		</div>
+    </nav>
+<br><br><br><br>
+		<h1 style='padding-bottom:0; margin-bottom:0;'> hello!! welcome to</h1>
+		<!--<p id='crizz'> CRIZZ! </p>-->
+		<img style='height:150px; width:auto; padding:0; margin:0;' src="{{url_for('static', filename='images/crizz.png')}}">
+		<br> 
 		<form action = "{{url_for('tutorial_page')}}" method = 'POST' enctype="multipart/form-data"> 
 
-			<label for = 'word'> input crochet pattern: </label>
-			<input type = 'text' id = 'text' name = 'text'>
-			<input type = 'file' id = 'img' name = 'img'> 
+			<label for = 'word'> input crochet pattern: </label><br>
+			<input type = 'text' id = 'text' name = 'text' style='height:150px; width:30%;'><br><br>
+			<input type = 'file' id = 'img' name = 'img'>
+			<br><br>			
 			<input type = 'submit'> 
 		</form>
 	</body> 
