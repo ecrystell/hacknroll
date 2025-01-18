@@ -22,12 +22,21 @@ body {
 	font-family: fantasy;
 } 
 
-video {
+#video {
 	height: auto; 
 	width: 100%; 
 	margin: 30 px; 
 	z-index: 5;
 } 
+
+video {
+	height: auto; 
+	width: 1000px; 
+	margin: 30 px; 
+	z-index: 5;
+} 
+
+
 
 /*tutorial*/
 .container { 
