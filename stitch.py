@@ -119,7 +119,7 @@ def stitch_finder(text):
 
                                 if context not in ["th", "nd", "st"]:
                                     
-                                    result = "{target}".strip() #f"{number}{target}".strip()
+                                    result = f"{target}".strip() #f"{number}{target}".strip()
                                     if repeat:
                                         toadd.append((result, wordcount))
                                     else:
