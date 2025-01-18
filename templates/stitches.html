@@ -23,6 +23,8 @@
 					<a href = "{{url_for('stitches')}}#dec"> decrease (dec) </a>
 					<a href = "{{url_for('stitches')}}#blo"> back loop only (blo) </a>
 					<a href = "{{url_for('stitches')}}#flo"> front loop only (flo) </a>
+					<a href = "{{url_for('stitches')}}#slst"> slip stitch (slst) </a>
+					<a href = "{{url_for('stitches')}}#slipknot"> slip knot </a>
 				  </div>
 				
 			</div>
@@ -114,6 +116,22 @@
 			Your browser does not support the video tag.
 			</video>
 			<br><p> front loop only (flo)</p>
+		</div>
+		
+		<div id = 'slst' name = 'slst'> <br><br><br><br>
+			<video width="320" height="240" controls>
+			  <source src="{{url_for('static', filename = 'video/slst.mp4')}}" type="video/mp4">
+			Your browser does not support the video tag.
+			</video>
+			<br><p> slip stitch (slst)</p>
+		</div>
+		
+		<div id = 'slipknot' name = 'slipknot'> <br><br><br><br>
+			<video width="320" height="240" controls>
+			  <source src="{{url_for('static', filename = 'video/slip knot.mp4')}}" type="video/mp4">
+			Your browser does not support the video tag.
+			</video>
+			<br><p> slip knot </p>
 		</div>
 		
 		<button onclick="topFunction()" id="topBtn" title="Go to top">Top</button>
