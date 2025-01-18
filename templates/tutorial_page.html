@@ -19,8 +19,8 @@
 		<!-- within container div -->
 		<div class = 'column' style = 'flex:1'>
 			<!-- within column 1 div -->
-			<video controls loop autoplay muted width = '100%' height = 'auto' id = 'tutorialvideo'>
-			<source src = '../static/video/mylivewallpapers-com-Pokemon-Nap-Time-4K.mp4' type="video/mp4">
+			<video controls loop autoplay muted width = '100%' height = 'auto' id = 'video'>
+			<source id = 'tutorialvideo' src = '../static/video/mylivewallpapers-com-Pokemon-Nap-Time-4K.mp4' type="video/mp4">
 			oops theres an error my bad
 			</video>
 			
@@ -35,6 +35,11 @@
 				<button id="one">x1.0</button>
 				<button id="onefive">x1.5</button>
 			</div>
+			
+			<div style = 'padding-top:10px'>
+				<button id="auto">auto</button>
+			</div>
+			
 		</div>
 		
 		<div class = 'columm' style = 'flex:1'>
@@ -129,9 +134,38 @@
 			updateText();
 		});
 		
+		const zerofive = document.getElementById("zerofive");
+		const one = document.getElementById("one");
+		const onefive = document.getElementById("onefive");
+		const auto = document.getElementById('auto');
+		
 		zerofive.addEventListener('click',() => {
-			document.getElementById("tutorialvideo").defaultPlaybackRate = 0.5;
+			document.querySelector('video').playbackRate = 0.5;
 		});
+		one.addEventListener('click',() => {
+			document.querySelector('video').playbackRate = 1;
+		});
+		onefive.addEventListener('click',() => {
+			document.querySelector('video').playbackRate = 1.5;
+		});
+		
+		auto.addEventListener('click', () => {
+			video = document.getElementById('video');
+			video.loop = !video.loop;
+			console.log('auto changed');
+		});
+		
+		let vid = document.querySelector("video");
+
+		vid.addEventListener('ended',playNextVideo,false);
+
+		function playNextVideo(e){
+		  
+		  vid.src='../static/video/mylivewallpapers-com-Pokemon-Nap-Time-4K.mp4';
+		  vid.play();
+		  console.log('video ended, next video played');
+		 
+		}
 
 		// Initial render
 		updateText();
