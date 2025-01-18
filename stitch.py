@@ -34,9 +34,10 @@ def stitch_finder(text):
             while i < len(line) - window_size:
             #for i in range(len(line) - window_size + 1):
                 i += 1
-                print(i, line[i], line_results)
+                #print(i, line[i], line_results)
                 if line[i] == ' ' and i < len(line) -1 and line[i+1] != ' ':
                     wordcount += 1
+                    #print('hello')
                     continue
 
                 # Extract the current window
@@ -95,13 +96,16 @@ def stitch_finder(text):
                             else:
                                 num_start = i - 1
                                 while num_start >= 0 and (line[num_start].isdigit() or line[num_start] == ' '):
+                                    #print('hi')
                                     num_start -= 1
 
                                 
-                                if num_start < i - 2:
+                                if num_start < i - 1:
+                                    
                                     number = line[num_start + 1:i].strip() 
-                                    line = line[:i-1] + line[i:]
-                                    wordcount -= 1
+                                    if line[i-1] == ' ':
+                                        line = line[:i-1] + line[i:]
+                                        wordcount -= 1
                                 else:
                                     number = ""
 
@@ -131,26 +135,3 @@ def stitch_finder(text):
 
         
     return (text_result, all_results)
-
-""" 
-text = '''
-R1\t        6 SC in a MR
-
-R2\t        [INC] x 6  (12)
-
-R3\t        [SC, INC] x 6 (18)
-
-R4\t        16 SC, [SL ST, CH1, DC, CH1, SL ST] in FLO of one stitch, 1 SC
-
-If you need more help with round 4, please visit the video tutorial at timestamp: 10:52
-
-R5\t        2 SC, [SL ST, CH1, DC CH1, SL ST] in  FLO of one stitch, 15 SC (the 14th SC should be made in the BLO of R3)
-
-R6\t        7 SC (the third SC should be made in the BLO of R4), 4-DcBo , 3 SC,  4-DcBo, 6 SC (18)
-
-R7-9\t18 SC (18)   3 Rounds
-
-R10\t        8 SC, 4-DcBo, 3 SC, 4-DcBo, 5 SC (18)
-'''
-
-print(stitch_finder(text)) """
