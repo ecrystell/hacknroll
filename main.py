@@ -41,4 +41,8 @@ def tutorial_page():
 def stitches():
     return render_template('stitches.html') 
 
+@app.route('/generate/')
+def generate():
+    return render_template('generate.html')
+
 app.run(debug=True)

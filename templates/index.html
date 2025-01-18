@@ -25,6 +25,7 @@
 				  </div>
 				
 			</div>
+			<a href = "{{url_for('generate')}}"> <button> generate</button></a>
 			
 		</div>
     </nav>
@@ -35,7 +36,7 @@
 		<br> 
 		<form action = "{{url_for('tutorial_page')}}" method = 'POST' enctype="multipart/form-data"> 
 
-			<label for = 'word'> input crochet pattern: </label><br>
+			<label for = 'word'><h2> input crochet pattern:</h2> </label><br>
 			<input type = 'text' id = 'text' name = 'text' style='height:150px; width:30%;'><br><br>
 			<input type = 'file' id = 'img' name = 'img'>
 			<br><br>			

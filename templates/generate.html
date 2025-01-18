@@ -1,0 +1,200 @@
+<!doctype html>
+<html>
+	<head> 
+		<link rel='stylesheet' href="{{url_for('static', filename = 'css/style.css')}}"> 
+		<title> generate </title>
+	</head>
+	<body> 
+	<nav>
+		<div id = 'topnav' class = 'topnav'>
+			<!-- <a href="#home" class='active' id = 'homepg' onclick='homeactive()'>home</a> --> 
+			<a href = "{{url_for('home')}}"> <button> home</button></a>
+			<div class = 'dropdown'>
+			<a href = "{{url_for('stitches')}}"> <button class='dropbtn'> stitches </button> </a>
+				  <div class="dropdown-content">
+					<a href = "{{url_for('stitches')}}#sc"> single crochet (sc) </a> 
+					<a href = "{{url_for('stitches')}}#ch"> chain (ch) </a> 
+					<a href = "{{url_for('stitches')}}#hdc"> half double crochet (hdc) </a>
+					<a href = "{{url_for('stitches')}}#dc"> double crochet (dc) </a>
+					<a href = "{{url_for('stitches')}}#tc"> treble crochet (tc) </a>
+					<a href = "{{url_for('stitches')}}#mr"> magic ring (mr) </a>
+					<a href = "{{url_for('stitches')}}#inc"> increase (inc) </a>
+					<a href = "{{url_for('stitches')}}#dec"> decrease (dec) </a>
+					<a href = "{{url_for('stitches')}}#blo"> back loop only (blo) </a>
+					<a href = "{{url_for('stitches')}}#flo"> front loop only (flo) </a>
+				  </div>
+			</div>
+            <a href = "{{url_for('generate')}}"> <button> generate</button></a>
+			
+		</div>
+    </nav>
+    <script type="module">
+        import * as THREE from 'https://cdnjs.cloudflare.com/ajax/libs/three.js/r121/three.module.js';
+        import {OrbitControls} from 'https://cdn.jsdelivr.net/npm/three@0.121.1/examples/jsm/controls/OrbitControls.js';
+        import { TransformControls } from 'https://cdn.jsdelivr.net/npm/three@0.121.1/examples/jsm/controls/TransformControls.js';
+
+        const canvas = document.querySelector('canvas');
+
+        // -- Global Variables --
+        // scene, camera, renderer
+        const scene = new THREE.Scene();
+        const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+        const renderer = new THREE.WebGLRenderer();
+
+        // cube or geometric object
+        const geometry = new THREE.BoxGeometry(2, 2, 2);
+        const material = new THREE.MeshPhongMaterial({color: 'purple'});
+        const cube = new THREE.Mesh(geometry, material);
+
+        
+
+        // orbit controls --> zoom in/out with scroll, pan with right-click, and drag to orbit
+        const Ocontrols = new OrbitControls(camera, renderer.domElement);
+        Ocontrols.enablePan = false;
+        Ocontrols.rotateSpeed = 0.5;
+
+        const Tcontrols = new TransformControls(camera, renderer.domElement);
+        Tcontrols.attach(cube);
+        scene.add(Tcontrols);
+        // Main function
+        function main() {
+            // remove the default canvas on web page (output)
+            
+            canvas.remove();
+
+            // add scene background color, set rendering size,
+            // and add to DOM on web page (output)
+            scene.background = new THREE.Color('#161718');
+            renderer.setSize(window.innerWidth/2, window.innerHeight/2);
+            document.body.appendChild(renderer.domElement);
+            
+            // reposition or transform camera
+            camera.position.set(0, 0, 5);
+            
+            // create world light and add to scene
+            const light = new THREE.HemisphereLight('#FFFFFF', '#757575', 1.7);
+            scene.add(light);
+            
+            // set initial cube position, rotation, and add to scene
+            cube.position.set(0, 0, 0);
+            cube.rotation.set(0.5, 0 , 0);
+            scene.add(cube);
+
+            
+            // call the update() function
+            update();
+        }
+
+        // Update or animation function
+        function update() {
+            // call the update() function every frame - creates a loop
+            requestAnimationFrame(update);
+
+        //    cube.rotation.x += 0.01;
+        //    cube.rotation.y += 0.01;
+        //    cube.rotation.z += 0;
+            
+            // render the updated scene and camera
+             // update the picking ray with the camera and pointer position
+             raycaster.setFromCamera( pointer, camera );
+
+            // calculate objects intersecting the picking ray
+            const intersect = raycaster.intersectObjects( scene.children )[0];
+
+            if (intersect) {
+                Tcontrols.attach(intersect.object);
+            }
+            
+            renderer.render(scene, camera);
+        };
+
+        function addShape() {
+            const shape = document.getElementById('shape');
+            const x = document.getElementById('x').value;
+            const y = document.getElementById('y').value;
+            const z = document.getElementById('z').value;
+
+            
+            if (shape.value == "cube") {
+                const geometry = new THREE.BoxGeometry(x, y, z);
+                const material = new THREE.MeshPhongMaterial({color: 'purple'});
+                const cube = new THREE.Mesh(geometry, material);
+                scene.add( cube );
+                Tcontrols.attach(cube);
+            } else if (shape.value == "cone") {
+                const geometry = new THREE.ConeGeometry( x, y, z ); 
+                const material = new THREE.MeshBasicMaterial( {color: 0xffff00} );
+                const cone = new THREE.Mesh(geometry, material ); 
+                scene.add( cone );
+                Tcontrols.attach(cone);
+            } else if (shape.value == "sphere") {
+                const geometry = new THREE.SphereGeometry( x, y, z ); 
+                const material = new THREE.MeshBasicMaterial( { color: 0xffff00 } ); 
+                const sphere = new THREE.Mesh( geometry, material );
+                scene.add( sphere );
+                Tcontrols.attach(sphere);
+            }
+                
+        }
+        const raycaster = new THREE.Raycaster();
+        const pointer = new THREE.Vector2();
+
+        function click( event ) {
+
+            // calculate pointer position in normalized device coordinates
+            // (-1 to +1) for both components
+
+            pointer.x = ( event.clientX / window.innerWidth ) * 2 - 1;
+            pointer.y = - ( event.clientY / window.innerHeight ) * 2 + 1;
+
+        }
+
+        window.addEventListener( 'click', click );
+
+        const submitbutton = document.getElementById("submit");
+
+        submitbutton.addEventListener("click", addShape);
+
+        main();
+    </script>
+    <body>
+        <br><br><br>
+            <div style="display: flex;">
+            <!-- within container div -->
+            <div class = 'column' style = 'flex:50%; margin: auto;'>
+
+                <h2>create your intended model with the 3D shapes <br>and generate a pattern!</h2>
+                <h3>left click to move newly placed shape around, right click to rotate, scroll to zoom</h3>
+                <label for='shape'> select a shape: </label>
+                <select name = 'shape' id = 'shape'> 
+                <option value='sphere'> sphere</option>
+                <option value='cube'> cube</option>
+                <option value='cone'> cone</option>
+                </select>
+                
+                <p> dimensions </p>
+                <label for='x'> length: </label>
+                <input type='number' name = 'x' id = 'x'> 
+                <label for='y'> height: </label>
+                <input type='number' name = 'y' id = 'y'> 
+                <label for='z'> breadth: </label>
+                <input type='number' name = 'z' id = 'z'>
+            
+                <br><br>
+                <input type = 'submit' id="submit" value="add shape!">
+
+            
+            <br><br>
+		    
+
+                <canvas id="canva"></canvas>
+            </div>
+            <div class = 'column' style = 'flex:50%; margin: auto;'>
+                <div class="scrollable-text" style = 'width:100%; height: 50%; overflow:auto; border: 1px solid; padding:10px' id = 'pattern'></div>
+
+            </div>
+
+
+        </div>
+    </body>
+</html>
