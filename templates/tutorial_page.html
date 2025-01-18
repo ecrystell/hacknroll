@@ -53,37 +53,14 @@
 			
 			<div style = 'padding-top:10px'>
 				<button id="auto">auto</button>
+				<p>{{stitches}}</p>
 			</div>
 			
 		</div>
 		
 		<div class = 'columm' style = 'flex:1'>
 			<!-- within column 2 div -->
-			<div class="scrollable-text" style = 'width:100%; height: 50%; overflow:auto; border: 1px solid; padding:10px' id = 'textBox'>
-				<!-- Lorem ipsum dolor sit amet, consectetur adipiscing elit.<br>
-				Vestibulum eget tempus mauris. Nulla facilisi. Sed at arcu non est congue malesuada.<br>
-				Proin vehicula, justo at viverra congue, sapien elit lacinia metus, vel dictum purus elit ac dui.<br>
-				Cras auctor odio nec sapien dapibus, nec mollis odio convallis. Quisque consequat, lectus nec faucibus fermentum,<br>
-				erat risus suscipit turpis, sit amet consectetur est nisi non magna. Duis aliquet tincidunt feugiat.<br>
-				Maecenas malesuada quam ac mauris varius, nec pharetra metus dapibus.<br>
-				More text here to demonstrate scrolling.<br>
-				Aenean vel eros sit amet arcu tincidunt convallis ut et nulla.<br>
-				Nulla facilisi. Pellentesque eget magna eget eros varius pharetra.<br>
-				Sed cursus, purus eget vehicula scelerisque, libero orci tempor mi, 
-				quis venenatis turpis lectus nec urna.
-				<br>
-				More text here to demonstrate scrolling. 
-				Aenean vel eros sit amet arcu tincidunt convallis ut et nulla. 
-				Nulla facilisi. Pellentesque eget magna eget eros varius pharetra. 
-				Sed cursus, purus eget vehicula scelerisque, libero orci tempor mi, 
-				quis venenatis turpis lectus nec urna.
-				<br>
-				More text here to demonstrate scrolling. 
-				Aenean vel eros sit amet arcu tincidunt convallis ut et nulla. 
-				Nulla facilisi. Pellentesque eget magna eget eros varius pharetra. 
-				Sed cursus, purus eget vehicula scelerisque, libero orci tempor mi, 
-				quis venenatis turpis lectus nec urna. -->
-				
+			<div class="scrollable-text" style = 'width:100%; height: 50%; overflow:auto; border: 1px solid; padding:10px' id = 'textBox'>				
 			</div>
 		</div>
 	
@@ -101,7 +78,7 @@
 		const nextButton = document.getElementById("nextButton");
 		
 		textBox.innerHTML = "{{ clean_text }}";
-		stitches = '{{stitches}}'
+		const stitch = {{stitches | tojson}};
 		// Words in the text box
 		let lines = textBox.innerHTML.split(/"\n"/);
 		for (let i = 0; i < lines.length;i++){
@@ -114,9 +91,9 @@
 		// Function to update text with highlighted word
 		function updateText() {
 			let updatedText = '';
-			for (let line = 0; line < stitches.length; line++){
+			for (let line = 0; line < out.length; line++){
 				for (let word = 0; word < out[line].length; word ++){
-					if (out[line][word] == stitches[currentLineIndex][currentWordIndex]){
+					if (line == stitch[currentLineIndex][currentWordIndex][1]){
 						updatedText += `<span style="color: blue; font-weight: bold;">${out[line][word]}</span>`;
 					} 
 					else{
@@ -143,10 +120,10 @@
 
 		// Next button functionality
 		nextButton.addEventListener("click", () => {
-			if (currentWordIndex < stitches[currentLineIndex].length - 1) {
+			if (currentWordIndex < stitch[currentLineIndex].length - 1) {
 				currentWordIndex++;
 			}
-			else if (currentWordIndex == stitches[currentLineIndex].length - 1 && currentLineIndex < stitches.length - 1){
+			else if (currentWordIndex == stitch[currentLineIndex].length - 1 && currentLineIndex < stitches.length - 1){
 				currentWordIndex = 0;
 				currentLineIndex++;
 			}
