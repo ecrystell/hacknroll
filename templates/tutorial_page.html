@@ -9,20 +9,31 @@
         <ul>
             <li><a href="#">Home</a></li>
         </ul>
+		<div id = 'topnav' class = 'topnav'>
+			<!-- <a href="#home" class='active' id = 'homepg' onclick='homeactive()'>home</a> --> 
+			<a href = "{{url_for('stitches')}}"> stitches </a>
+		</div>
     </nav>
 	
 	<div class = 'container' style = 'display: flex; gap: 20px; padding: 20px'>
 		<!-- within container div -->
 		<div class = 'column' style = 'flex:1'>
 			<!-- within column 1 div -->
-			<video controls loop autoplay width = '100%' height = 'auto'>
+			<video controls loop autoplay muted width = '100%' height = 'auto' id = 'tutorialvideo'>
 			<source src = '../static/video/mylivewallpapers-com-Pokemon-Nap-Time-4K.mp4' type="video/mp4">
+			oops theres an error my bad
 			</video>
 			
 			<div id="controls" style = 'text-align: center'>
 				<!-- within column 1 -> button div -->
 				<button id="prevButton">⬅️ Previous</button>
 				<button id="nextButton">Next ➡️</button>
+			</div>
+			
+			<div id = 'playback'>
+				<button id="zerofive">x0.5</button>
+				<button id="one">x1.0</button>
+				<button id="onefive">x1.5</button>
 			</div>
 		</div>
 		
@@ -54,8 +65,7 @@
 				quis venenatis turpis lectus nec urna.
 			</div>
 		</div>
-		
-	</div>
+	
 	<script>
 		// Initial state
 		let currentLineIndex = 0;
@@ -117,6 +127,10 @@
 				currentLineIndex++;
 			}
 			updateText();
+		});
+		
+		zerofive.addEventListener('click',() => {
+			document.getElementById("tutorialvideo").defaultPlaybackRate = 0.5;
 		});
 
 		// Initial render
