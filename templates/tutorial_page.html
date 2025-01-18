@@ -101,21 +101,22 @@
 		const nextButton = document.getElementById("nextButton");
 		
 		textBox.innerHTML = "{{ clean_text }}";
+		stitches = '{{stitches}}'
 		// Words in the text box
 		let lines = textBox.innerHTML.split(/"\n"/);
 		for (let i = 0; i < lines.length;i++){
 			currLine = lines[i];
 			let words = currLine.split(' ');
 			out[i] = words;
-			lineLength[i] = words.length;
 		}
+		
 		
 		// Function to update text with highlighted word
 		function updateText() {
 			let updatedText = '';
-			for (let line = 0; line < lineLength.length; line++){
-				for (let word = 0; word < lineLength[line]; word ++){
-					if (line == currentLineIndex && word == currentWordIndex){
+			for (let line = 0; line < stitches.length; line++){
+				for (let word = 0; word < out[line].length; word ++){
+					if (out[line][word] == stitches[currentLineIndex][currentWordIndex]){
 						updatedText += `<span style="color: blue; font-weight: bold;">${out[line][word]}</span>`;
 					} 
 					else{
@@ -142,10 +143,10 @@
 
 		// Next button functionality
 		nextButton.addEventListener("click", () => {
-			if (currentWordIndex < lineLength[currentLineIndex] - 1) {
+			if (currentWordIndex < stitches[currentLineIndex].length - 1) {
 				currentWordIndex++;
 			}
-			else if (currentWordIndex = lineLength[currentLineIndex] - 1 && currentLineIndex < lineLength.length -1){
+			else if (currentWordIndex == stitches[currentLineIndex].length - 1 && currentLineIndex < stitches.length - 1){
 				currentWordIndex = 0;
 				currentLineIndex++;
 			}
