@@ -35,7 +35,7 @@
 		<div class = 'column' style = 'flex:1'>
 			<!-- within column 1 div -->
 			<video controls loop autoplay muted width = '100%' height = 'auto' id = 'video'>
-			<source id = 'tutorialvideo' src = '../static/video/mylivewallpapers-com-Pokemon-Nap-Time-4K.mp4' type="video/mp4">
+			<source id = 'tutorialvideo' src = '../static/video/'+currStitch+ '.mp4' type="video/mp4">
 			oops theres an error my bad
 			</video>
 			
@@ -70,6 +70,7 @@
 		let currentWordIndex = 0;
 		let lineLength = [];
 		let out = [];
+		let currStitch = '';
 
 		// DOM elements
 		const textBox = document.getElementById("textBox");
@@ -103,7 +104,8 @@
 					console.log(currentLineIndex,currentWordIndex)
 					if (line == currentLineIndex && word == stitch[currentLineIndex][currentWordIndex][1]){
 						updatedText += `<span style="color: blue; font-weight: bold;">${out[line][word]}</span>`;
-						console.log(out);
+						currStitch = stitch[currentLineIndex][currentWordIndex][0];
+						console.log(currStitch);
 					} 
 					else{
 						updatedText += out[line][word];
@@ -125,6 +127,7 @@
 				currentWordIndex = lineLength[currentLineIndex] -1;
 			}
 			updateText();
+			playNextVideo(true);
 		});
 
 		// Next button functionality
@@ -137,6 +140,7 @@
 				currentLineIndex++;
 			}
 			updateText();
+			playNextVideo(true);
 		});
 		
 		const zerofive = document.getElementById("zerofive");
@@ -165,14 +169,29 @@
 		vid.addEventListener('ended',playNextVideo,false);
 
 		function playNextVideo(e){
-		  
-		  vid.src='../static/video/mylivewallpapers-com-Pokemon-Nap-Time-4K.mp4';
-		  vid.play();
-		  console.log('video ended, next video played');
+			video = document.getElementById('video');
+			console.log(video.loop);
+			if (video.loop == false){
+				if (currentWordIndex < stitch[currentLineIndex].length - 1) {
+					currentWordIndex++;
+				}
+				else if (currentWordIndex == stitch[currentLineIndex].length - 1 && currentLineIndex < stitch.length - 1){
+					currentWordIndex = 0;
+					currentLineIndex++;
+				}
+				updateText();
+			}
+			let filename = '../static/video/'+currStitch+'.mp4';
+			console.log(filename);
+			vid.src=filename;
+			vid.playbackRate = 1.0;
+			vid.play();
+			console.log('video ended, next video played');
 		 
 		}
 
 		// Initial render
 		updateText();
+		playNextVideo();
     </script>
 </body>
