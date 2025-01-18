@@ -34,7 +34,7 @@ def stitch_finder(text):
             while i < len(line) - window_size:
             #for i in range(len(line) - window_size + 1):
                 i += 1
-                #print(i, line[i], line_results)
+                print(i, line[i], line_results)
                 if line[i] == ' ' and i < len(line) -1 and line[i+1] != ' ':
                     wordcount += 1
                     #print('hello')
@@ -46,9 +46,9 @@ def stitch_finder(text):
                     repeat = True
                     
                 elif window.startswith(']') or window.startswith(')'):
-                    if toadd:
-                        line_results.append(toadd)
-                    toadd = []
+                    #if toadd:
+                    #    line_results.append(toadd)
+                    #toadd = []
                     repeat = False
                 #print(window)
                 # Check for any target in the window
@@ -56,6 +56,7 @@ def stitch_finder(text):
 
                     
                     if window.startswith(target):
+                        
                         # Ensure the characters before and after are not letters
                         before = line[i - 1] if i > 0 else " "
                         after = line[i + len(target)] if i + len(target) < len(line) else " "
@@ -69,17 +70,17 @@ def stitch_finder(text):
 
                                 number = int(line[i+1:num_start].strip())
                                 #print(number)
-                                torepeat = line_results[-1]
-                                line_results.pop()
+                                torepeat = toadd #line_results[-1]
+                                #line_results.pop()
                                 count = torepeat[0][1]
                                 for j in range(number):
-                                    
+                                    #print(torepeat)
                                     for item, oldcount in torepeat:
                                         line_results.append((item, count))
                                         count += 1
                                         if j != number-1:
                                             line = line[:i] + item + ' ' + line[i:]
-                                            print(i)
+                                            #print(i)
                                             i += len(item) + 1
 
                                 #result = f"{target}{number}".strip()
@@ -123,6 +124,11 @@ def stitch_finder(text):
                                         line_results.append((result, wordcount))
                                         #print("window", window, line, line[i], i)
                                         #print(line_results)
+                                        if toadd and repeat == False:
+                                            print(toadd)
+                                            for item in toadd:
+                                                line_results.append(item)
+                                            toadd = []
                                 break  # Move to the next window after finding a match
                 
                 
