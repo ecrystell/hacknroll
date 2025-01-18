@@ -1,13 +1,16 @@
 <!DOCTYPE html> 
 <html> 
 	<head> 
+		<link rel='stylesheet' href="{{url_for('static', filename = 'css/style.css')}}"> 
 		<title> home </title>
 	</head>
 	<body> 
-		<h1> hello </h1>
+
+		<h1> hello!! welcome to crizz!</h1>
 		<form action = "{{url_for('tutorial_page')}}" method = 'POST' enctype="multipart/form-data"> 
+
 			<label for = 'word'> input crochet pattern: </label>
-			<input type = 'text' id = 'text' name = 'text' placeholder = '-'>
+			<input type = 'text' id = 'text' name = 'text'>
 			<input type = 'file' id = 'img' name = 'img'> 
 			<input type = 'submit'> 
 		</form>

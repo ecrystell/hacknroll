@@ -1,6 +1,7 @@
 <!DOCTYPE html> 
 <html> 
 	<head> 
+		<link rel='stylesheet' href="{{url_for('static', filename = 'css/style.css')}}"> 
 		<title> stitches </title>
 	</head>
 	<body> 
@@ -9,33 +10,124 @@
 		
 		<p> contents </p>
 		<a href = '#sc'> single crochet (sc) </a> <br>
-		<a href = '#dc'> double crochet (fc) </a><br>
-		<a href = '#tc'> treble crochet (c) </a><br>
+		<a href = '#ch'> chain (ch) </a> <br>
 		<a href = '#hdc'> half double crochet (hdc) </a><br>
+		<a href = '#dc'> double crochet (dc) </a><br>
+		<a href = '#tc'> treble crochet (tc) </a><br>
+		<a href = '#mr'> magic ring (mr) </a><br>
+		<a href = '#inc'> increase (inc) </a><br>
+		<a href = '#dec'> decrease (dec) </a><br>
+		<a href = '#blo'> back loop only (blo) </a><br>
+		<a href = '#flo'> front loop only (flo) </a><br>
+		
 		
 		<div id = 'sc' name = 'sc'> 
-			<h2> single crochet (sc) </h2>
+			<br><br><br>
 			<video width="320" height="240" controls>
 			  <source src="{{url_for('static', filename = 'video/sample.mp4')}}" type="video/mp4">
 			Your browser does not support the video tag.
 			</video>
+			<br><p> single crochet (sc)</p>
 		</div>
 		
-		<div id = 'dc' name = 'dc'> 
-			<h2> double crochet (dc) </h2>
-			<!-- video --> 
-		</div>
-		
-		<div id = 'tc' name = 'tc'> 
-			<h2> treble crochet (tc) </h2>
-			<!-- video --> 
+		<div id = 'ch' name = 'ch'> 
+		<br><br><br>
+			<video width="320" height="240" controls>
+			  <source src="{{url_for('static', filename = 'video/sample.mp4')}}" type="video/mp4">
+			Your browser does not support the video tag.
+			</video>
+			<br><p> chain (ch)</p>
 		</div>
 		
 		<div id = 'hdc' name = 'hdc'> 
-			<h2> half double crochet (hdc) </h2>
-			<!-- video --> 
+		<br><br><br>
+			<video width="320" height="240" controls>
+			  <source src="{{url_for('static', filename = 'video/sample.mp4')}}" type="video/mp4">
+			Your browser does not support the video tag.
+			</video>
+			<br><p> half double crochet (hdc)</p>
 		</div>
+		
+		<div id = 'dc' name = 'dc'> 
+		<br><br><br>
+			<video width="320" height="240" controls>
+			  <source src="{{url_for('static', filename = 'video/sample.mp4')}}" type="video/mp4">
+			Your browser does not support the video tag.
+			</video>
+			<br><p> double crochet (dc)</p>
+		</div>
+		
+		<div id = 'tc' name = 'tc'> <br><br><br>
+			<video width="320" height="240" controls>
+			  <source src="{{url_for('static', filename = 'video/sample.mp4')}}" type="video/mp4">
+			Your browser does not support the video tag.
+			</video>
+			<br><p> treble crochet (tc)</p>
+		</div>
+		
+		<div id = 'mr' name = 'mr'> <br><br><br>
+			<video width="320" height="240" controls>
+			  <source src="{{url_for('static', filename = 'video/sample.mp4')}}" type="video/mp4">
+			Your browser does not support the video tag.
+			</video>
+			<br><p> magic ring (mr)</p>
+		</div>
+		
+		<div id = 'inc' name = 'inc'> <br><br><br>
+			<video width="320" height="240" controls>
+			  <source src="{{url_for('static', filename = 'video/sample.mp4')}}" type="video/mp4">
+			Your browser does not support the video tag.
+			</video>
+			<br><p> increase (inc)</p>
+		</div>
+		
+		<div id = 'dec' name = 'dec'> <br><br><br>
+			<video width="320" height="240" controls>
+			  <source src="{{url_for('static', filename = 'video/sample.mp4')}}" type="video/mp4">
+			Your browser does not support the video tag.
+			</video>
+			<br><p> decrease (dec)</p>
+		</div>
+		
+		<div id = 'blo' name = 'blo'> <br><br><br>
+			<video width="320" height="240" controls>
+			  <source src="{{url_for('static', filename = 'video/sample.mp4')}}" type="video/mp4">
+			Your browser does not support the video tag.
+			</video>
+			<br><p> back loop only (blo)</p>
+		</div>
+		
+		<div id = 'flo' name = 'flo'> <br><br><br>
+			<video width="320" height="240" controls>
+			  <source src="{{url_for('static', filename = 'video/sample.mp4')}}" type="video/mp4">
+			Your browser does not support the video tag.
+			</video>
+			<br><p> front loop only (flo)</p>
+		</div>
+		
+		<button onclick="topFunction()" id="myBtn" title="Go to top">Top</button>
 
 	</body>
 		
+	<script>
+	// Get the button:
+	let mybutton = document.getElementById("myBtn");
+
+	// When the user scrolls down 20px from the top of the document, show the button
+	window.onscroll = function() {scrollFunction()};
+
+	function scrollFunction() {
+	  if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
+		mybutton.style.display = "block";
+	  } else {
+		mybutton.style.display = "none";
+	  }
+	}
+
+	// When the user clicks on the button, scroll to the top of the document
+	function topFunction() {
+	  document.body.scrollTop = 0; // For Safari
+	  document.documentElement.scrollTop = 0; // For Chrome, Firefox, IE and Opera
+	}
+	</script>
 </html>

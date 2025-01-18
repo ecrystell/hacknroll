@@ -1,17 +1,32 @@
 <!doctype html> 
 <html>
 <head>
+	<link rel='stylesheet' href="{{url_for('static', filename = 'css/style.css')}}"> 
 	<title>Tutorial Page</title>
 </head>
 
 <body>
     <nav>
-        <ul>
-            <li><a href="#">Home</a></li>
-        </ul>
 		<div id = 'topnav' class = 'topnav'>
 			<!-- <a href="#home" class='active' id = 'homepg' onclick='homeactive()'>home</a> --> 
-			<a href = "{{url_for('stitches')}}"> stitches </a>
+			<button><a href = "{{url_for('home')}}"> home </a></button>
+			<div class = 'dropdown'>
+			<button class='dropbtn'><a href = "{{url_for('stitches')}}"> stitches </a></button>			
+				  <div class="dropdown-content">
+					<a href = "{{url_for('stitches')}}#sc"> single crochet (sc) </a> 
+					<a href = "{{url_for('stitches')}}#ch"> chain (ch) </a> 
+					<a href = "{{url_for('stitches')}}#hdc"> half double crochet (hdc) </a>
+					<a href = "{{url_for('stitches')}}#dc"> double crochet (dc) </a>
+					<a href = "{{url_for('stitches')}}#tc"> treble crochet (tc) </a>
+					<a href = "{{url_for('stitches')}}#mr"> magic ring (mr) </a>
+					<a href = "{{url_for('stitches')}}#inc"> increase (inc) </a>
+					<a href = "{{url_for('stitches')}}#dec"> decrease (dec) </a>
+					<a href = "{{url_for('stitches')}}#blo"> back loop only (blo) </a>
+					<a href = "{{url_for('stitches')}}#flo"> front loop only (flo) </a>
+				  </div>
+				
+			</div>
+			
 		</div>
     </nav>
 	
