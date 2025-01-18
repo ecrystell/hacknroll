@@ -65,7 +65,12 @@ def stitch_finder(text):
                                 while num_start >= 0 and (line[num_start].isdigit() or line[num_start] == ' '):
                                     num_start -= 1
 
-                                number = line[num_start + 1:i].strip() if num_start < i - 1 else "1"
+                                
+                                if num_start < i - 1:
+                                    number = line[num_start + 1:i].strip() 
+                                    line = line[:i-1] + line[i:]
+                                else:
+                                    number = ""
 
                                 # Exclude matches where the characters before (excluding spaces) are "th", "nd", or "st"
                                 context_start = max(0, num_start - 2)
@@ -74,11 +79,11 @@ def stitch_finder(text):
                                 if context not in ["th", "nd", "st"]:
                                     if not number and target not in ["flo", "blo", "mr"]:
                                         number = "1"
-                                    result = f"{number} {target}".strip()
+                                    result = f"{number}{target}".strip()
                                     if smaller:
                                         toadd.append(result)
                                     else:
-                                        line_results.append()
+                                        line_results.append(result)
                                 break  # Move to the next window after finding a match
             if line_results:
                 all_results.append(line_results)

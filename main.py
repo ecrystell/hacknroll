@@ -15,17 +15,17 @@ def home():
 def tutorial_page():
     if request.method == "POST":
         text = request.form["text"]
-        try:
-            img = request.form["img"]
-        except:
-            img = ''
+        #try:
+        img = request.files["img"]
+        #except:
+        #    img = ''
 
         if img and img.filename.split('.')[-1] in ['jpg', 'jpeg', 'png']:
-            img.save("images/" + img.filename)
+            img.save("static/images/" + img.filename)
 
-            text = image_to_text(img)
+            text = image_to_text("static/images/" + img.filename)
 
-            os.remove("images/" + img.filename)
+            os.remove("static/images/" + img.filename)
 
         
         clean_text, stitches = stitch_finder(text)
