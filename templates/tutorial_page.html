@@ -101,6 +101,26 @@
 		
 		// Function to update text with highlighted word
 		function updateText() {
+			if (currentLineIndex < stitch.length){
+				console.log(currentLineIndex);
+				console.log(stitch[currentLineIndex]);
+				while (currentLineIndex < stitch.length && stitch[currentLineIndex].length ==0){
+					currentLineIndex++;
+					console.log(currentLineIndex);
+				}
+			}
+			console.log(currentLineIndex);
+			console.log('hello');
+			console.log(stitch.length);
+			if (currentLineIndex == stitch.length){
+				currentLineIndex--;
+				console.log(stitch[currentLineIndex]);
+				while (stitch[currentLineIndex].length == 0){
+					currentLineIndex--;
+					console.log('enter');
+				}
+				currentWordIndex = stitch[currentLineIndex].length -1;
+			}
 			let updatedText = '';
 			for (let line = 0; line < out.length; line++){
 				for (let word = 0; word < out[line].length; word ++){
@@ -127,7 +147,7 @@
 			}
 			else if (currentWordIndex == 0 && currentLineIndex > 0){
 				currentLineIndex--;
-				currentWordIndex = lineLength[currentLineIndex] -1;
+				currentWordIndex = stitch[currentLineIndex].length -1;
 			}
 			updateText();
 			playNextVideo(true);
