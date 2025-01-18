@@ -1,6 +1,6 @@
 from flask import Flask, render_template, request, url_for, redirect
 from stitch import stitch_finder
-from ocr import image_to_text
+from convert import detect_text
 import os
 
 app = Flask(__name__)
@@ -23,7 +23,7 @@ def tutorial_page():
         if img and img.filename.split('.')[-1] in ['jpg', 'jpeg', 'png']:
             img.save("static/images/" + img.filename)
 
-            text = image_to_text("static/images/" + img.filename)
+            text = detect_text("static/images/" + img.filename)
 
             os.remove("static/images/" + img.filename)
 

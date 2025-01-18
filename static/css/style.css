@@ -1,9 +1,20 @@
 body, div { 
 	margin:auto;
 	text-align: center; 
-	background-color: #FFFDEC;
+	/* background-color: #FFFDEC; */
+	
 } 
 
+body {
+	background: conic-gradient(
+		#f5ebb0 90deg,
+		#e9c8c8 180deg
+	);
+	background-repeat: repeat;
+	background-size: 60px 60px;
+	background-position: top left;
+	)
+}
 #crizz { 
 	font-size: 100px;
 	padding: 0;
@@ -110,4 +121,14 @@ button:hover {
 	z-index: 100;
 }
 
+#submit {
+	background-color: #FFE2E2;
+	border-color: #FFE2E2;
+	border-radius: 5px;
+	outline: none;
+}
 
+#text {
+	border-radius: 5px;
+	border-color: #FFE2E2;
+}
