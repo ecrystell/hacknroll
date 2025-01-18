@@ -8,7 +8,7 @@ def stitch_finder(text):
     """
     # Normalize the text and targets for case-insensitive search
     text = text.lower()
-    text_result = []
+    text_result = ""
     targets = ["sc", "ch", "dc", "hdc", "tc", "mr", "inc", "dec", "blo", "flo", "slst", "x"]
 
     # Split the text into lines
@@ -131,7 +131,7 @@ def stitch_finder(text):
             
             line = line.replace('\t', ' ')[:-3]
             
-            text_result.append(line)
+            text_result += line + '\n'
 
         
-    return (text_result, all_results)
+    return (text_result[:-1], all_results)
