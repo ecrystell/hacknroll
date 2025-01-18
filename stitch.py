@@ -34,7 +34,7 @@ def stitch_finder(text):
             while i < len(line) - window_size:
             #for i in range(len(line) - window_size + 1):
                 i += 1
-                print(i, line[i], line_results)
+                print(i, line[i], line_results, toadd)
                 if line[i] == ' ' and i < len(line) -1 and line[i+1] != ' ':
                     wordcount += 1
                     #print('hello')
@@ -82,6 +82,9 @@ def stitch_finder(text):
                                             line = line[:i] + item + ' ' + line[i:]
                                             #print(i)
                                             i += len(item) + 1
+                                            wordcount += 1
+
+                                toadd = []
 
                                 #result = f"{target}{number}".strip()
                                 #line_results.append(result)
@@ -104,7 +107,7 @@ def stitch_finder(text):
                                 if num_start < i - 1:
                                     
                                     number = line[num_start + 1:i].strip() 
-                                    if line[i-1] == ' ':
+                                    if line[i-1] == ' ' and line[i-2].isdigit():
                                         line = line[:i-1] + line[i:]
                                         wordcount -= 1
                                 else:
@@ -120,15 +123,15 @@ def stitch_finder(text):
                                     if repeat:
                                         toadd.append((result, wordcount))
                                     else:
-                                       
-                                        line_results.append((result, wordcount))
-                                        #print("window", window, line, line[i], i)
-                                        #print(line_results)
                                         if toadd and repeat == False:
                                             print(toadd)
                                             for item in toadd:
                                                 line_results.append(item)
                                             toadd = []
+                                        line_results.append((result, wordcount))
+                                        #print("window", window, line, line[i], i)
+                                        #print(line_results)
+                                        
                                 break  # Move to the next window after finding a match
                 
                 
