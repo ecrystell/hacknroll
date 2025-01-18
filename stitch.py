@@ -136,12 +136,12 @@ def stitch_finder(text):
                                 break  # Move to the next window after finding a match
                 
                 
-            if all_results[-1]:
-                all_results.append(all_results[-1])
+            #if all_results[-1]:
+            #    all_results.append(all_results[-1])
             
             line = line.replace('\t', ' ')[:-3]
             
             text_result += line + '\n'
 
-        
+    print(all_results)
     return (text_result[:-1], all_results)

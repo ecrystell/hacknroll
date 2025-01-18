@@ -25,7 +25,7 @@ def tutorial_page():
 
             text = detect_text("static/images/" + img.filename)
 
-            os.remove("static/images/" + img.filename)
+            #os.remove("static/images/" + img.filename)
 
         
         clean_text, stitches = stitch_finder(text)

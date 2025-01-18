@@ -77,10 +77,13 @@
 		const prevButton = document.getElementById("prevButton");
 		const nextButton = document.getElementById("nextButton");
 		
-		textBox.innerHTML = "{{ clean_text }}";
+		textBox.innerHTML =`{{clean_text}}`;
 		const stitch = {{stitches | tojson}};
+		while (stitch[currentLineIndex].length == 0){
+			currentLineIndex++;
+		}
 		// Words in the text box
-		let lines = textBox.innerHTML.split(/"\n"/);
+		let lines = textBox.innerHTML.split("\n");
 		for (let i = 0; i < lines.length;i++){
 			currLine = lines[i];
 			let words = currLine.split(' ');
