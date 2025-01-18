@@ -13,7 +13,6 @@ body {
 	background-repeat: repeat;
 	background-size: 60px 60px;
 	background-position: top left;
-	)
 }
 #crizz { 
 	font-size: 100px;
@@ -23,8 +22,8 @@ body {
 } 
 
 video {
-	height: 420px; 
-	width: auto; 
+	height: auto; 
+	width: 100%; 
 	margin: 30 px; 
 	z-index: 5;
 } 
@@ -40,6 +39,10 @@ video {
 .column {
 	flex: 1; 
 } 
+
+.scrollable-text {
+	background-color:#e5c9c9;
+}
 
 #tutorialvideo {
 	width: 100%; 
