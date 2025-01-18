@@ -5,11 +5,11 @@
 	</head>
 	<body> 
 		<h1> hello </h1>
-		<form> 
+		<form action = "{{url_for('tutorial_page')}}" method = 'POST'> 
 			<label for = 'word'> input crochet pattern: </label>
-			<input type = 'text' id = 'word' name = 'word'>
-			<input type = 'file'> 
+			<input type = 'text' id = 'text' name = 'text' value = '-'>
+			<input type = 'file' id = 'img' name = 'img'> 
 			<input type = 'submit'> 
 		</form>
-		
+	</body> 
 </html>

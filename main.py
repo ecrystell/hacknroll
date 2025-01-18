@@ -1,11 +1,11 @@
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request, url_for
 
 app = Flask(__name__)
 
 @app.route('/')
 @app.route('/home/')
 def home():
-    return render_template('home.html')
+    return render_template('index.html')
 
 
 @app.route('/tutorial_page/', methods=["POST", "GET"])
@@ -20,4 +20,9 @@ def tutorial_page():
 
         
         return render_template('tutorial_page.html')
+
+
+@app.route('/stitches/')
+def stitches():
+    return render_template('stitches.html') 
 app.run()
