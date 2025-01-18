@@ -26,7 +26,8 @@ def stitch_finder(text):
     for line in lines:
         wordcount = 0
         if line:
-            line_results = []
+            all_results.append([])
+            #line_results = []
             line += '   '
             line = line.replace('sl st', 'slst')
             
@@ -34,7 +35,7 @@ def stitch_finder(text):
             while i < len(line) - window_size:
             #for i in range(len(line) - window_size + 1):
                 i += 1
-                print(i, line[i], line_results, toadd)
+                print(i, line[i], all_results[-1], toadd)
                 if line[i] == ' ' and i < len(line) -1 and line[i+1] != ' ':
                     wordcount += 1
                     #print('hello')
@@ -76,7 +77,7 @@ def stitch_finder(text):
                                 for j in range(number):
                                     #print(torepeat)
                                     for item, oldcount in torepeat:
-                                        line_results.append((item, count))
+                                        all_results[-1].append((item, count))
                                         count += 1
                                         if j != number-1:
                                             line = line[:i] + item + ' ' + line[i:]
@@ -126,17 +127,17 @@ def stitch_finder(text):
                                         if toadd and repeat == False:
                                             print(toadd)
                                             for item in toadd:
-                                                line_results.append(item)
+                                                all_results[-1].append(item)
                                             toadd = []
-                                        line_results.append((result, wordcount))
+                                        all_results[-1].append((result, wordcount))
                                         #print("window", window, line, line[i], i)
                                         #print(line_results)
                                         
                                 break  # Move to the next window after finding a match
                 
                 
-            if line_results:
-                all_results.append(line_results)
+            if all_results[-1]:
+                all_results.append(all_results[-1])
             
             line = line.replace('\t', ' ')[:-3]
             
