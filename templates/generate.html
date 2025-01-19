@@ -258,17 +258,20 @@ function conep(radius, height) {
 	
 	
 	// event listener for sphere 
-	document.getElementById("x").addEventListener('change', doThing);
+	document.getElementById("shape").addEventListener('change', doThing);
 
 	/* Function */
 	function doThing(){
 	   console.log('run');
 	   if (document.getElementById('shape').value === 'sphere') { 
-	   let parameter = document.getElementById('x').value;
-	   document.getElementById('y').value = parameter;
-	   document.getElementById('z').value = parameter;
+			document.getElementById('hide').style = 'display: none;';
+			console.log('hidden');
+		}else {
+			document.getElementById('hide').style = 'display: inline;';
+			console.log('unhide');
 	   }
 	}
+	window.onload = doThing();
     </script>
     <body>
         <br><br><br>
@@ -288,11 +291,13 @@ function conep(radius, height) {
                 <p> dimensions </p>
                 <label for='x'> length: </label>
                 <input type='number' name = 'x' id = 'x'> 
-                <label for='y'> height: </label>
+				<div id = 'hide' name = 'hide' style = 'display: none;'>
+				<label for='y'> height: </label>
                 <input type='number' name = 'y' id = 'y'> 
                 <label for='z'> breadth: </label>
-                <input type='number' name = 'z' id = 'z'>
-            
+                <input type='number' name = 'z' id = 'z' >
+            	</div>
+                
                 <br><br>
                 <input type = 'submit' id="submit" value="add shape!">
 
