@@ -262,6 +262,23 @@ function conep(radius, height) {
     }
 }
 	
+
+function cylinderp(rad, height) {
+  document.getElementById('pattern').innerHTML += '<br> cylinder <br>';
+  const circumference = rad * 6;
+  var rad = Number(rad); 
+  var height = Number(height);
+
+  for (let i = 0; i < rad; i++) {
+    if (i === 0) {
+      document.getElementById('pattern').innerHTML +='r1: 6sc in mr (6)<br>';
+    } else {
+      document.getElementById('pattern').innerHTML += 'r' + (i + 1) + ': (' + (i - 1) +'sc, inc)X6 (' + (i + 1) * 6 +') <br>';
+    }
+  }
+
+  document.getElementById('pattern').innerHTML += 'r' + (rad + 1) + '-' + (rad + height) + ': sc ard (' + (rad * 6) + ') <br>';
+}
 	
 	// event listener for sphere 
 	document.getElementById("shape").addEventListener('change', doThing);
