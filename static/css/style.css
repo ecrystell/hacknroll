@@ -134,7 +134,7 @@ button:hover {
 	z-index: 100;
 }
 
-#submit {
+#submit, #clear {
 	background-color: #FFE2E2;
 	border-color: #FFE2E2;
 	border-radius: 5px;

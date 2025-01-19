@@ -43,10 +43,12 @@
         const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
         const renderer = new THREE.WebGLRenderer();
 
+        var objects = [];
         // cube or geometric object
         const geometry = new THREE.BoxGeometry(2, 2, 2);
         const material = new THREE.MeshPhongMaterial({color: 'purple'});
         const cube = new THREE.Mesh(geometry, material);
+        objects.push(cube);
         var intersect = null;
         
         const raycaster = new THREE.Raycaster();
@@ -127,6 +129,7 @@
                 scene.add( cube );
                 Tcontrols.attach(cube);
 				cubep(x,y,z);
+                objects.push(cube);
             } else if (shape.value == "cone") {
                 const geometry = new THREE.ConeGeometry( x, y, z ); 
                 const material = new THREE.MeshBasicMaterial( {color: 0xffff00} );
@@ -134,6 +137,7 @@
                 scene.add( cone );
                 Tcontrols.attach(cone);
 				conep(x,y);
+                objects.push(cone);
             } else if (shape.value == "sphere") {
                 const geometry = new THREE.SphereGeometry( x, y, z ); 
                 const material = new THREE.MeshBasicMaterial( { color: 0xffff00 } ); 
@@ -141,6 +145,7 @@
                 scene.add( sphere );
                 Tcontrols.attach(sphere);
 				spherep(x); 
+                objects.push(sphere);
 				
             } else if (shape.value == "cylinder") {
                 const geometry = new THREE.CylinderGeometry( x, x, y, z ); 
@@ -149,9 +154,15 @@
                 scene.add( cylinder );
                 Tcontrols.attach(cylinder);
 				cylinderp(x, y); 
+                objects.push(cylinder);
             }
         }
         
+        function clear(){
+            document.getElementById('pattern').innerHTML = ""
+            scene.remove.apply(scene, scene.children);
+            scene.add(Tcontrols);
+        }
 
         function click( event ) {
 
@@ -179,7 +190,7 @@
         const submitbutton = document.getElementById("submit");
 
         submitbutton.addEventListener("click", addShape);
-
+        document.getElementById("clear").addEventListener('click', clear);
         main();
 		
 		
@@ -265,7 +276,7 @@ function conep(radius, height) {
 	
 	// event listener for sphere 
 	document.getElementById("shape").addEventListener('change', doThing);
-
+   
 	/* Function */
 	function doThing(){
 	   console.log('run');
@@ -278,6 +289,8 @@ function conep(radius, height) {
 	   }
 	}
 	window.onload = doThing();
+
+    
     </script>
     <body>
         <br><br><br>
@@ -307,6 +320,7 @@ function conep(radius, height) {
                 
                 <br><br>
                 <input type = 'submit' id="submit" value="add shape!">
+                <input type = "submit" value="clear" id="clear">
 
             
             <br><br>
