@@ -256,6 +256,19 @@ function conep(radius, height) {
     }
 }
 	
+	
+	// event listener for sphere 
+	document.getElementById("x").addEventListener('change', doThing);
+
+	/* Function */
+	function doThing(){
+	   console.log('run');
+	   if (document.getElementById('shape').value === 'sphere') { 
+	   let parameter = document.getElementById('x').value;
+	   document.getElementById('y').value = parameter;
+	   document.getElementById('z').value = parameter;
+	   }
+	}
     </script>
     <body>
         <br><br><br>
