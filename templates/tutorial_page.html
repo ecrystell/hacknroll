@@ -134,33 +134,33 @@
 		function updateText() {
 			
 			if (currentLineIndex < stitch.length){
-				console.log(currentLineIndex);
-				console.log(stitch[currentLineIndex]);
+				// console.log(currentLineIndex);
+				// console.log(stitch[currentLineIndex]);
 				while (currentLineIndex < stitch.length && stitch[currentLineIndex].length ==0){
 					currentLineIndex++;
-					console.log(currentLineIndex);
+					// console.log(currentLineIndex);
 				}
 			}
-			console.log(currentLineIndex);
-			console.log('hello');
-			console.log(stitch.length);
+			// console.log(currentLineIndex);
+			// console.log('hello');
+			// console.log(stitch.length);
 			if (currentLineIndex == stitch.length){
 				currentLineIndex--;
-				console.log(stitch[currentLineIndex]);
+				//console.log(stitch[currentLineIndex]);
 				while (stitch[currentLineIndex].length == 0){
 					currentLineIndex--;
-					console.log('enter');
+					//console.log('enter');
 				}
 				currentWordIndex = stitch[currentLineIndex].length -1;
 			}
 			let updatedText = '';
 			for (let line = 0; line < out.length; line++){
 				for (let word = 0; word < out[line].length; word ++){
-					console.log(currentLineIndex,currentWordIndex)
+					//console.log(currentLineIndex,currentWordIndex)
 					if (line == currentLineIndex && word == stitch[currentLineIndex][currentWordIndex][1]){
 						updatedText += `<span style="color: blue; font-weight: bold;">${out[line][word]}</span>`;
 						currStitch = stitch[currentLineIndex][currentWordIndex][0];
-						console.log(currStitch);
+						//console.log(currStitch);
 					} 
 					else{
 						updatedText += out[line][word];
@@ -218,7 +218,7 @@
 		auto.addEventListener('click', () => {
 			video = document.getElementById('video');
 			video.loop = !video.loop;
-			console.log('auto changed');
+			//console.log('auto changed');
 			updateAuto();
 		});
 		
@@ -228,7 +228,7 @@
 
 		function playNextVideo(e){
 			video = document.getElementById('video');
-			console.log(video.loop);
+			//console.log(video.loop);
 			if (video.loop == false){
 				if (currentWordIndex < stitch[currentLineIndex].length - 1) {
 					currentWordIndex++;
@@ -240,11 +240,11 @@
 				updateText();
 			}
 			let filename = '../static/video/'+currStitch+'.mp4';
-			console.log(filename);
+			//console.log(filename);
 			vid.src=filename;
 			vid.playbackRate = 1.0;
 			vid.play();
-			console.log('video ended, next video played');
+			//console.log('video ended, next video played');
 		 
 		}
 
