@@ -161,6 +161,11 @@
         function clear(){
             document.getElementById('pattern').innerHTML = ""
             scene.remove.apply(scene, scene.children);
+            const geometry = new THREE.BoxGeometry(0.01, 0.01, 0.01);
+            const material = new THREE.MeshPhongMaterial({color: '#161718'});
+            const cube = new THREE.Mesh(geometry, material);
+            scene.add( cube );
+            Tcontrols.attach(cube);
             scene.add(Tcontrols);
         }
 
