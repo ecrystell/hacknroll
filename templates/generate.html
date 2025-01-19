@@ -47,13 +47,15 @@
         const geometry = new THREE.BoxGeometry(2, 2, 2);
         const material = new THREE.MeshPhongMaterial({color: 'purple'});
         const cube = new THREE.Mesh(geometry, material);
-
+        var intersect = null;
         
+        const raycaster = new THREE.Raycaster();
+        const pointer = new THREE.Vector2();
 
         // orbit controls --> zoom in/out with scroll, pan with right-click, and drag to orbit
         const Ocontrols = new OrbitControls(camera, renderer.domElement);
-        Ocontrols.enablePan = false;
-        Ocontrols.rotateSpeed = 0.5;
+        Ocontrols.enableRotate = false;
+        Ocontrols.panSpeed = 0.5;
 
         const Tcontrols = new TransformControls(camera, renderer.domElement);
         Tcontrols.attach(cube);
@@ -103,7 +105,8 @@
             // calculate objects intersecting the picking ray
             const intersect = raycaster.intersectObjects( scene.children )[0];
 
-            if (intersect) {
+            if (intersect != null) {
+                //console.log("found obj");
                 Tcontrols.attach(intersect.object);
             }
             
@@ -142,8 +145,7 @@
             }
                 
         }
-        const raycaster = new THREE.Raycaster();
-        const pointer = new THREE.Vector2();
+        
 
         function click( event ) {
 
@@ -151,11 +153,22 @@
             // (-1 to +1) for both components
 
             pointer.x = ( event.clientX / window.innerWidth ) * 2 - 1;
-            pointer.y = - ( event.clientY / window.innerHeight ) * 2 + 1;
+            pointer.y = - ( event.clientY / window.innerHeight ) * 2 + 1.5;
+            console.log(pointer.x, pointer.y);
 
         }
 
+        /* function deleteobj(event) {
+            const key = event.key;
+            if (key === "Backspace" || key === "Delete") {
+                if (intersect != null) {
+                    scene.remove(intersect.object);
+                }
+            }
+        }
+ */
         window.addEventListener( 'click', click );
+        //window.addEventListener('keydown', deleteobj);
 
         const submitbutton = document.getElementById("submit");
 
@@ -251,7 +264,7 @@ function conep(radius, height) {
             <div class = 'column' style = 'flex:50%; margin: auto;'>
 
                 <h2>create your intended model with the 3D shapes <br>and generate a pattern!</h2>
-                <h3>left click to move newly placed shape around, right click to rotate, scroll to zoom</h3>
+                <h3>left click on object to move it around,<br> right click to pan, scroll to zoom</h3>
                 <label for='shape'> select a shape: </label>
                 <select name = 'shape' id = 'shape'> 
                 <option value='sphere'> sphere</option>
